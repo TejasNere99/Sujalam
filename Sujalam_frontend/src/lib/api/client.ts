@@ -1,4 +1,13 @@
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+const getBaseUrl = () => {
+  let url = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api').trim();
+  url = url.replace(/\/+$/, '');
+  if (!url.endsWith('/api')) {
+    url = `${url}/api`;
+  }
+  return url;
+};
+
+export const API_BASE_URL = getBaseUrl();
 
 const TOKEN_KEY = 'sujalam_auth_token';
 

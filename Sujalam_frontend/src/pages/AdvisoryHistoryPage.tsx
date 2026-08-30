@@ -8,6 +8,7 @@ import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { Clock, RefreshCw, ShieldCheck } from 'lucide-react';
 import { Button } from '../components/ui/Button';
+import { API_BASE_URL } from '../lib/api/client';
 
 export const AdvisoryHistoryPage: React.FC = () => {
   const { currentFarm, refreshAdvisory, currentAdvisory, isLoadingAdvisory } = useFarm();
@@ -21,7 +22,7 @@ export const AdvisoryHistoryPage: React.FC = () => {
   useEffect(() => {
     if (!farmId) { setIsLoading(false); return; }
     // Load advisory history from backend
-    fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api'}/farms/${farmId}/advisories`, {
+    fetch(`${API_BASE_URL}/farms/${farmId}/advisories`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('sujalam_auth_token')}`,
       },
@@ -40,7 +41,7 @@ export const AdvisoryHistoryPage: React.FC = () => {
       await refreshAdvisory();
       // Reload history
       if (farmId) {
-        const r = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api'}/farms/${farmId}/advisories`, {
+        const r = await fetch(`${API_BASE_URL}/farms/${farmId}/advisories`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('sujalam_auth_token')}` },
         });
         const d = await r.json();

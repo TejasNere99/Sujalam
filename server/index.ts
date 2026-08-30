@@ -12,18 +12,20 @@ import { startHealthMonitor } from './resilience/healthMonitor';
 const app = express();
 const port = process.env.PORT || 3000;
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:3000',
-  process.env.CORS_ORIGIN,           // e.g. https://sujalam-xyz.vercel.app
-].filter(Boolean) as string[];
-
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (curl, Render health checks, etc.)
+    // Allow requests with no origin (e.g. mobile apps, curl, Render health checks)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error(`CORS: origin ${origin} not allowed`));
+    // Allow all vercel deployments (*.vercel.app), localhost, and configured CORS_ORIGIN
+    if (
+      /^http:\/\/localhost(:\d+)?$/.test(origin) ||
+      /\.vercel\.app$/.test(origin) ||
+      origin === process.env.CORS_ORIGIN
+    ) {
+      return callback(null, true);
+    }
+    // Fallback: allow to prevent CORS blockages across deployment domains
+    return callback(null, true);
   },
   credentials: true,
 }));

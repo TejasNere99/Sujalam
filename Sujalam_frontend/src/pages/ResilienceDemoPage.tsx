@@ -1,5 +1,6 @@
 import React from 'react';
 import { useResilience } from '../context/ResilienceContext';
+import { API_BASE_URL } from '../lib/api/client';
 import { CheckCircle, XCircle, AlertTriangle, Database, ShieldAlert, Activity, RefreshCw } from 'lucide-react';
 
 export const ResilienceDemoPage: React.FC = () => {
@@ -7,7 +8,7 @@ export const ResilienceDemoPage: React.FC = () => {
 
   const handleAction = async (endpoint: string) => {
     try {
-      await fetch(`/api/resilience/${endpoint}`, { method: 'POST' });
+      await fetch(`${API_BASE_URL}/resilience/${endpoint}`, { method: 'POST' });
       refresh();
     } catch (e) {
       console.error(e);

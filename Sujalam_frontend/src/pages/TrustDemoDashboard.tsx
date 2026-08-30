@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../lib/api/client';
 
 const TrustDemoDashboard: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -12,7 +13,7 @@ const TrustDemoDashboard: React.FC = () => {
     setActiveCase(label);
     
     try {
-      const response = await axios.post('/api/trust/demo', { scenario: scenarioId });
+      const response = await axios.post(`${API_BASE_URL}/trust/demo`, { scenario: scenarioId });
       setResult(response.data);
     } catch (error) {
       console.error(error);

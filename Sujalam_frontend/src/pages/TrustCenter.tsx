@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../lib/api/client';
 
 interface VerificationResult {
   success: boolean;
@@ -28,7 +29,7 @@ const TrustCenter: React.FC = () => {
     setResult(null);
 
     try {
-      const response = await axios.post('/api/trust/verify', { message });
+      const response = await axios.post(`${API_BASE_URL}/trust/verify`, { message });
       if (response.data.success) {
         setResult(response.data);
       } else {

@@ -17,12 +17,14 @@ interface ResilienceContextType {
 
 const ResilienceContext = createContext<ResilienceContextType | undefined>(undefined);
 
+import { API_BASE_URL } from '../lib/api/client';
+
 export const ResilienceProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [status, setStatus] = useState<ResilienceStatus | null>(null);
 
   const fetchStatus = async () => {
     try {
-      const res = await fetch('/api/resilience/status');
+      const res = await fetch(`${API_BASE_URL}/resilience/status`);
       if (res.ok) {
         const data = await res.json();
         setStatus(data);
