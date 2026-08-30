@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: sujalam-backend
+    env: node
+    region: singapore
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false   # Set manually in Render dashboard — never commit this
+      - key: JWT_SECRET
+        generateValue: true   # Render will auto-generate a secure random value
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: AI_PROVIDER
+        value: openrouter
+      - key: OPENROUTER_MODEL
+        value: openai/gpt-4o-mini
+      - key: AI_TIMEOUT_MS
+        value: 30000
+      - key: AI_MAX_RETRIES
+        value: 2
+      # The keys below must be set manually in the Render dashboard
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: PLANT_ID_API_KEY
+        sync: false
+      - key: WEATHER_API_KEY
+        sync: false
+      - key: MARKET_API_KEY
+        sync: false
+      - key: WHATSAPP_ACCESS_TOKEN
+        sync: false
+      - key: WHATSAPP_PHONE_NUMBER_ID
+        sync: false
+      - key: WHATSAPP_VERIFY_TOKEN
+        sync: false
+      - key: WHATSAPP_APP_SECRET
+        sync: false

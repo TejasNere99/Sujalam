@@ -1,0 +1,12 @@
+# Normalize line endings to LF for all text files
+# This prevents the CRLF/LF warnings on Windows and ensures
+# consistent line endings across Windows, Mac, and Linux contributors.
+* text=auto eol=lf
+
+# Force binary files to not be processed
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
