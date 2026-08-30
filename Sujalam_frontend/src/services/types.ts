@@ -131,6 +131,13 @@ export type FarmAdvisory = {
     market_trend_percent: number | null;
   };
 
+  resource_recommendation?: {
+    action: "BOOK" | "WAIT" | "NO_MATCH" | "INSUFFICIENT_DATA";
+    resource_ids?: string[];
+    reason?: string;
+    estimated_cost?: number;
+  };
+
   ai_metadata?: {
     provider: string;
     model?: string;
